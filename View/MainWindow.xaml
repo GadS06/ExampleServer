@@ -4,36 +4,44 @@
 		xmlns:oxy="http://oxyplot.org/wpf" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-		
-        <oxy:PlotView Name="PlotView" Model="{Binding PlotModel}" Grid.Column="0"/>
-		
-		<StackPanel Grid.Column="1">
-			<TextBlock Text="point_X"/>
-			<TextBox Name="PointXInput" Text="{Binding Path=WindowData.PointX}"/>
-			<TextBlock Text="point_Y"/>
-			<TextBox Name="PointYInput" Text="{Binding Path=WindowData.PointY}"/>
-			<TextBlock Text="stepLength_Time"/>
-			<TextBox Name="StepLengthTimeInput" Text="{Binding Path=WindowData.StepLengthTime}"/>
-			<TextBlock Text="numOfSteps_Time"/>
-			<TextBox Name="NumOfStepsTimeInput" Text="{Binding Path=WindowData.NumOfStepsTime}"/>
-			<TextBlock Text="stepLength_X"/>
-			<TextBox Name="StepLengthXInput" Text="{Binding Path=WindowData.StepLengthX}"/>
-			<TextBlock Text="numOfSteps_X"/>
-			<TextBox Name="NumOfStepsXInput" Text="{Binding Path=WindowData.NumOfStepsX}"/>
-			<TextBlock Text="stepLength_Y"/>
-			<TextBox Name="StepLengthYInput" Text="{Binding Path=WindowData.StepLengthY}"/>
-			<TextBlock Text="numOfSteps_Y"/>
-			<TextBox Name="NumOfStepsYInput" Text="{Binding Path=WindowData.NumOfStepsY}"/>
-			<TextBlock Text="zeroFunc"/>
-			<TextBox Name="ZeroFuncInput" Text="{Binding Path=WindowData.ZeroFunc}"/>
-			<TextBlock Text="borderFunc"/>
-			<TextBox Name="BorderFuncInput" Text="{Binding Path=WindowData.BorderFunc}"/>
-			<Button Content="Count" Click="CountClick"/>
-		</StackPanel>
-    </Grid>
+	<DockPanel>
+		<StatusBar DockPanel.Dock="Bottom">
+			<StatusBarItem>
+				<TextBlock Text="{Binding Path=StatusString}"/>
+			</StatusBarItem>
+		</StatusBar>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<oxy:PlotView Name="PlotView" Model="{Binding PlotModel}" Grid.Column="0"/>
+
+			<StackPanel Grid.Column="1">
+				<TextBlock Text="point_X"/>
+				<TextBox Name="PointXInput" Text="{Binding Path=WindowData.PointX,Mode=TwoWay}"/>
+				<TextBlock Text="point_Y"/>
+				<TextBox Name="PointYInput" Text="{Binding Path=WindowData.PointY,Mode=TwoWay}"/>
+				<TextBlock Text="stepLength_Time"/>
+				<TextBox Name="StepLengthTimeInput" Text="{Binding Path=WindowData.StepLengthTime}"/>
+				<TextBlock Text="numOfSteps_Time"/>
+				<TextBox Name="NumOfStepsTimeInput" Text="{Binding Path=WindowData.NumOfStepsTime}"/>
+				<TextBlock Text="stepLength_X"/>
+				<TextBox Name="StepLengthXInput" Text="{Binding Path=WindowData.StepLengthX}"/>
+				<TextBlock Text="numOfSteps_X"/>
+				<TextBox Name="NumOfStepsXInput" Text="{Binding Path=WindowData.NumOfStepsX}"/>
+				<TextBlock Text="stepLength_Y"/>
+				<TextBox Name="StepLengthYInput" Text="{Binding Path=WindowData.StepLengthY}"/>
+				<TextBlock Text="numOfSteps_Y"/>
+				<TextBox Name="NumOfStepsYInput" Text="{Binding Path=WindowData.NumOfStepsY}"/>
+				<TextBlock Text="zeroFunc"/>
+				<TextBox Name="ZeroFuncInput" Text="{Binding Path=WindowData.ZeroFunc}"/>
+				<TextBlock Text="borderFunc"/>
+				<TextBox Name="BorderFuncInput" Text="{Binding Path=WindowData.BorderFunc}"/>
+				<Button Content="Example" Click="ExampleClick"/>
+				<Button Content="Count" Click="CountClick"/>
+			</StackPanel>
+		</Grid>
+	</DockPanel>
 </Window>

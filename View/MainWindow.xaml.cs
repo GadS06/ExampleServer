@@ -26,14 +26,23 @@ namespace View
 		{
 			ViewModel = new ViewModel.ViewModel();
 			DataContext = ViewModel;
-			
+
 			InitializeComponent();
 		}
 
 		private void CountClick(object sender, RoutedEventArgs e)
 		{
-			ViewModel.Count();
-			PlotView.InvalidatePlot(true);
+			Task taskCount = new Task(() => { ViewModel.Count(); });
+			Task taskAfterCount = taskCount.ContinueWith(something => { PlotView.InvalidatePlot(true); });
+			taskCount.Start();
+
+			//ViewModel.Count();
+			//PlotView.InvalidatePlot(true);
+		}
+
+		private void ExampleClick(object sender, RoutedEventArgs e)
+		{
+			ViewModel.ExampleFill();
 		}
 	}
 }
