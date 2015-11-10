@@ -40,7 +40,7 @@
 				<TextBlock Text="borderFunc"/>
 				<TextBox Name="BorderFuncInput" Text="{Binding Path=WindowData.BorderFunc}"/>
 				<Button Content="Example" Click="ExampleClick"/>
-				<Button Content="Count" Click="CountClick"/>
+				<Button Content="Count" Click="CountClick" Name="CountBtn" IsEnabled="{Binding Path=IsReadyToCount}"/>
 			</StackPanel>
 		</Grid>
 	</DockPanel>

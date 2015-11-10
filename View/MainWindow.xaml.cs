@@ -32,8 +32,16 @@ namespace View
 
 		private void CountClick(object sender, RoutedEventArgs e)
 		{
-			Task taskCount = new Task(() => { ViewModel.Count(); });
-			Task taskAfterCount = taskCount.ContinueWith(something => { PlotView.InvalidatePlot(true); });
+			Task taskCount = new Task(() =>
+			{
+				//CountBtn.IsEnabled = false;
+				ViewModel.Count();
+			});
+			Task taskAfterCount = taskCount.ContinueWith(something =>
+			{
+				PlotView.InvalidatePlot(true);  // Зачем был создан второй task?
+				//CountBtn.IsEnabled = true;
+			});
 			taskCount.Start();
 
 			//ViewModel.Count();
