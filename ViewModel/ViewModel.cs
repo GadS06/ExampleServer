@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Model;
 using OxyPlot;
 
@@ -11,12 +7,11 @@ namespace ViewModel
 {
 	public class ViewModel : INotifyPropertyChanged
 	{
-		private const string STATUS_READY = "Doing nothing";
-		private const string STATUS_COUNTING = "Counting...";
+		private const string StatusReady = "Doing nothing";
+		private const string StatusCounting = "Counting...";
 
-		// PlotModel property begin
-		private OxyPlot.PlotModel _plotModel;
-		public OxyPlot.PlotModel PlotModel
+		private PlotModel _plotModel;
+		public PlotModel PlotModel
 		{
 			get
 			{
@@ -36,7 +31,6 @@ namespace ViewModel
 				PropertyChanged(this, new PropertyChangedEventArgs(argPropertyName));
 			}
 		}
-		// PlotModel property end
 
 		private InitialData _windowData;
 		public InitialData WindowData
@@ -83,31 +77,18 @@ namespace ViewModel
 			CountingMethod = new ParallelCountingMethod();
 			//CountingMethod = new SimpleCountingMethod();
 
-			StatusString = STATUS_READY;
+			StatusString = StatusReady;
 
 			IsReadyToCount = true;
-
-			//// создаём оси - X и Y
-			//var xAxis = new OxyPlot.Axes.LinearAxis();
-			//PlotModel.Axes.Add(xAxis);
-
-			//var yAxis = new OxyPlot.Axes.LinearAxis();
-			//PlotModel.Axes.Add(yAxis);
-
-			//// создаём и размещаем линию на графике ака серия точек
-			//var lineSerie = new OxyPlot.Series.LineSeries();
-			//for (int i = 0; i < 10; i++)
-			//{
-			//	lineSerie.Points.Add(new DataPoint(i, i));
-			//}
-			//PlotModel.Series.Add(lineSerie);
 		}
 
 		public void Count()
 		{
-			StatusString = STATUS_COUNTING;
+			// закрываем возможность считать что-то ещё
+			StatusString = StatusCounting;
 			IsReadyToCount = false;
 
+			// считаем
 			CountingMethod.Data = WindowData;
 			float timeStep = WindowData.StepLengthTime;
 			try
@@ -121,6 +102,7 @@ namespace ViewModel
 				return;
 			}
 
+			// забрасываем результат в график
 			var lineSerie = new OxyPlot.Series.LineSeries();
 			float time = 0;
 			foreach (float f in CountingMethod.Result)
@@ -130,16 +112,9 @@ namespace ViewModel
 			}
 			PlotModel.Series.Add(lineSerie);
 
-			StatusString = STATUS_READY;
+			// возвращаем возможность считать что-то ещё
+			StatusString = StatusReady;
 			IsReadyToCount = true;
-
-
-			//var lineSerie = new OxyPlot.Series.LineSeries();
-			//for (int i = 0; i < 10; i++)
-			//{
-			//	lineSerie.Points.Add(new DataPoint(i, i * WindowData.PointX));
-			//}
-			//PlotModel.Series.Add(lineSerie);
 		}
 
 		public void ExampleFill()

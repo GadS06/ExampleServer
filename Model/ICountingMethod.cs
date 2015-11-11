@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Model
 {
@@ -12,7 +7,15 @@ namespace Model
 		InitialData Data { get; set; } // входные данные
 		List<float> Result { get; set; } // результат работы ЧМ - последовательность точек F_xy(t)
 
-		// входные данные -> результат (или исключение)
+		/** <summary>
+		 * Метод выполняет расчёт численного метода.
+		 * Входные данные берутся из свойства "Data".
+		 * Результат записывается в свойство "Result" и представляет последовательность значений
+		 * функции в заданной точке в заданный промежуток времени.
+		 * Для нормальной работы необходимо задать значения свойств класса.
+		 * Если какое-либо значение будет некорректным, будет брошено исключение.
+		 * </summary>
+		 */
 		void CountGraph();
 	}
 }

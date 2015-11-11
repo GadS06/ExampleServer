@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Model
@@ -27,8 +25,6 @@ namespace Model
 				EdgesSet();
 
 				OldGrid = NewGrid;
-
-				// statusString = "Counting: " + (((float)t / (float)Data.NumOfStepsTime) * 100f).ToString() + "%";
 			}
 
 			Result.Add(OldGrid[Convert.ToInt32(normalizedPointX), Convert.ToInt32(normalizedPointY)]);

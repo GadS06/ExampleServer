@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LoreSoft.MathExpressions;
 
 namespace Model
@@ -15,7 +12,7 @@ namespace Model
 		protected float[,] OldGrid { get; set; }
 		protected float[,] NewGrid { get; set; }
 
-		protected LoreSoft.MathExpressions.MathEvaluator Evaluator { get; set; }
+		protected MathEvaluator Evaluator { get; set; }
 
 		public BaseCountingMethod()
 		{
@@ -30,9 +27,9 @@ namespace Model
 		{
 			for (int j = 0 + 1; j < Data.NumOfStepsY - 1; j++)
 			{
-				float L1 = (OldGrid[i - 1, j] - 2 * OldGrid[i, j] + OldGrid[i + 1, j]) / (Data.StepLengthX * Data.StepLengthX);
-				float L2 = (OldGrid[i, j - 1] - 2 * OldGrid[i, j] + OldGrid[i, j + 1]) / (Data.StepLengthY * Data.StepLengthY);
-				NewGrid[i, j] = OldGrid[i, j] + Data.StepLengthTime * (L1 + L2);
+				float l1 = (OldGrid[i - 1, j] - 2 * OldGrid[i, j] + OldGrid[i + 1, j]) / (Data.StepLengthX * Data.StepLengthX);
+				float l2 = (OldGrid[i, j - 1] - 2 * OldGrid[i, j] + OldGrid[i, j + 1]) / (Data.StepLengthY * Data.StepLengthY);
+				NewGrid[i, j] = OldGrid[i, j] + Data.StepLengthTime * (l1 + l2);
 			}
 		}
 
@@ -79,7 +76,6 @@ namespace Model
 					Evaluator.Variables["x"] = i * Data.StepLengthX;
 					Evaluator.Variables["y"] = j * Data.StepLengthY;
 					OldGrid[i, j] = (float)Evaluator.Evaluate(Data.ZeroFunc);
-					//OldGrid[i, j] = Data.ZeroFunc(i * Data.StepLengthX, j * Data.StepLengthY);
 				}
 			}
 		}
@@ -92,22 +88,21 @@ namespace Model
 				Evaluator.Variables["x"] = i * Data.StepLengthX;
 				Evaluator.Variables["y"] = 0;
 				NewGrid[i, 0] = (float)Evaluator.Evaluate(Data.BorderFunc);
-				//NewGrid[i, 0] = Data.BorderFunc(i * Data.StepLengthX, 0);
+
 				Evaluator.Variables["x"] = i * Data.StepLengthX;
 				Evaluator.Variables["y"] = (Data.NumOfStepsY - 1) * Data.StepLengthY;
 				NewGrid[i, Data.NumOfStepsY - 1] = (float)Evaluator.Evaluate(Data.BorderFunc);
-				//NewGrid[i, numOfSteps_Y - 1] = borderFunc(i * stepLength_X, (numOfSteps_Y - 1) * stepLength_Y);
 			}
+
 			for (int j = 1; j < Data.NumOfStepsY - 1; j++)
 			{
 				Evaluator.Variables["x"] = 0;
 				Evaluator.Variables["y"] = j * Data.StepLengthY;
 				NewGrid[0, j] = (float)Evaluator.Evaluate(Data.BorderFunc);
-				//NewGrid[0, j] = borderFunc(0, j * stepLength_Y);
+
 				Evaluator.Variables["x"] = (Data.NumOfStepsX - 1) * Data.StepLengthX;
 				Evaluator.Variables["y"] = j * Data.StepLengthY;
 				NewGrid[Data.NumOfStepsX - 1, j] = (float)Evaluator.Evaluate(Data.BorderFunc);
-				//NewGrid[numOfSteps_X - 1, j] = borderFunc((numOfSteps_X - 1) * stepLength_X, j * stepLength_Y);
 			}
 		}
 	}

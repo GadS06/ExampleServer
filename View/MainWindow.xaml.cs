@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace View
 {
@@ -34,18 +22,10 @@ namespace View
 		{
 			Task taskCount = new Task(() =>
 			{
-				//CountBtn.IsEnabled = false;
 				ViewModel.Count();
-			});
-			Task taskAfterCount = taskCount.ContinueWith(something =>
-			{
-				PlotView.InvalidatePlot(true);  // Зачем был создан второй task?
-				//CountBtn.IsEnabled = true;
+				PlotView.InvalidatePlot(true);
 			});
 			taskCount.Start();
-
-			//ViewModel.Count();
-			//PlotView.InvalidatePlot(true);
 		}
 
 		private void ExampleClick(object sender, RoutedEventArgs e)
