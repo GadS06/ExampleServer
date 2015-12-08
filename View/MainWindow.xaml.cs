@@ -47,5 +47,16 @@ namespace View
 				ViewModel.RemoveById(id);
 			}
 		}
+
+		private void LoadClick(object sender, RoutedEventArgs e)
+		{
+			var selectedItem = SavedResultsListBox.SelectedItem;
+			if (selectedItem != null)
+			{
+				int id = (int)selectedItem;
+				ViewModel.LoadById(id);
+				PlotView.InvalidatePlot(true);
+			}
+		}
 	}
 }

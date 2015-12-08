@@ -131,6 +131,16 @@ namespace ViewModel
 			}
 
 			// забрасываем результат в график
+			UpdatePlot();
+
+			// возвращаем возможность считать что-то ещё
+			StatusString = StatusReady;
+			IsReadyToCount = true;
+		}
+
+		private void UpdatePlot()
+		{
+			float timeStep = WindowData.StepLengthTime;
 			var lineSerie = new OxyPlot.Series.LineSeries();
 			float time = 0;
 			foreach (float f in CountingMethod.Result)
@@ -139,10 +149,6 @@ namespace ViewModel
 				time += timeStep;
 			}
 			PlotModel.Series.Add(lineSerie);
-
-			// возвращаем возможность считать что-то ещё
-			StatusString = StatusReady;
-			IsReadyToCount = true;
 		}
 
 		public void ExampleFill()
@@ -196,6 +202,20 @@ namespace ViewModel
 			dbContext.SaveChanges();
 
 			UpdateSavedResultsList();
+		}
+
+		public void LoadById(int id)
+		{
+			var e = dbContext.EntitySet.Find(id);
+
+			BinaryFormatter bf = new BinaryFormatter();
+			MemoryStream initialDataMS = new MemoryStream(e.InitialData);
+			MemoryStream dataMS = new MemoryStream(e.Data);
+
+			WindowData = (InitialData)bf.Deserialize(initialDataMS);
+			CountingMethod.Result = (List<float>)bf.Deserialize(dataMS);
+
+			UpdatePlot();
 		}
 	}
 }
