@@ -70,11 +70,6 @@
     <Compile Include="InitialData.cs" />
     <Compile Include="ParallelCountingMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultsDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ResultsDB.edmx</DependentUpon>
-    </Compile>
     <Compile Include="SimpleCountingMethod.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,17 +90,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="ResultsDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ResultsDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <None Include="ResultsDB.edmx.diagram">
-      <DependentUpon>ResultsDB.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LoreSoft.MathExpressions\LoreSoft.MathExpressions.csproj">
