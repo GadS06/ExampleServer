@@ -37,5 +37,15 @@ namespace View
 		{
 			ViewModel.SaveCurrent();
 		}
+
+		private void DeleteClick(object sender, RoutedEventArgs e)
+		{
+			var selectedItem = SavedResultsListBox.SelectedItem;
+			if (selectedItem != null)
+			{
+				int id = (int)selectedItem;
+				ViewModel.RemoveById(id);
+			}
+		}
 	}
 }

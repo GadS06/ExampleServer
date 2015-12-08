@@ -188,5 +188,14 @@ namespace ViewModel
 				SavedResults.Add(elem);
 			}
 		}
+
+		public void RemoveById(int id)
+		{
+			var e = dbContext.EntitySet.Find(id);
+			dbContext.EntitySet.Remove(e);
+			dbContext.SaveChanges();
+
+			UpdateSavedResultsList();
+		}
 	}
 }

@@ -42,7 +42,8 @@
 				<Button Content="Example" Click="ExampleClick"/>
 				<Button Content="Count" Click="CountClick" Name="CountBtn" IsEnabled="{Binding Path=IsReadyToCount}"/>
 				<Button Content="Save" Click="SaveClick"/>
-				<ListBox ItemsSource="{Binding Path=SavedResults}"/>
+				<Button Content="Delete" Click="DeleteClick"/>
+				<ListBox Name="SavedResultsListBox" ItemsSource="{Binding Path=SavedResults}"/>
 			</StackPanel>
 		</Grid>
 	</DockPanel>
