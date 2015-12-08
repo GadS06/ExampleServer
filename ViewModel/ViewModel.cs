@@ -19,20 +19,6 @@ namespace ViewModel
 
 		public ObservableCollection<int> SavedResults { get; set; } 
 
-		//private List<int> _savedResults;
-		//public List<int> SavedResults
-		//{
-		//	get
-		//	{
-		//		return _savedResults;
-		//	}
-		//	set
-		//	{
-		//		_savedResults = value;
-		//		CallPropertyChangedEvent("SavedResults");
-		//	}
-		//}
-
 		private PlotModel _plotModel;
 		public PlotModel PlotModel
 		{
@@ -79,6 +65,17 @@ namespace ViewModel
 			}
 		}
 
+		private bool _isReadyToSave;
+		public bool IsReadyToSave
+		{
+			get { return _isReadyToSave; }
+			set
+			{
+				_isReadyToSave = value;
+				CallPropertyChangedEvent("IsReadyToSave");
+			}
+		}
+
 		private bool _isReadyToCount;
 		public bool IsReadyToCount
 		{
@@ -87,6 +84,8 @@ namespace ViewModel
 			{
 				_isReadyToCount = value;
 				CallPropertyChangedEvent("IsReadyToCount");
+
+				IsReadyToSave = IsReadyToCount;
 			}
 		}
 
@@ -108,6 +107,7 @@ namespace ViewModel
 			StatusString = StatusReady;
 
 			IsReadyToCount = true;
+			IsReadyToSave = false;
 		}
 
 		public void Count()
@@ -172,6 +172,12 @@ namespace ViewModel
 			MemoryStream initialDataMS = new MemoryStream();
 			MemoryStream dataMS = new MemoryStream();
 
+			if (CountingMethod.Result == null)
+			{
+				StatusString = "Data is empty! Nothing to save.";
+				return;
+			}
+
 			bf.Serialize(initialDataMS,WindowData);
 			bf.Serialize(dataMS,CountingMethod.Result);
 
@@ -216,6 +222,7 @@ namespace ViewModel
 			CountingMethod.Result = (List<float>)bf.Deserialize(dataMS);
 
 			UpdatePlot();
+			IsReadyToSave = true;
 		}
 	}
 }
