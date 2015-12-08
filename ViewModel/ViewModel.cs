@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using Model;
 using OxyPlot;
 
@@ -9,6 +11,8 @@ namespace ViewModel
 	{
 		private const string StatusReady = "Doing nothing";
 		private const string StatusCounting = "Counting...";
+
+		private DBContext dbContext;
 
 		private PlotModel _plotModel;
 		public PlotModel PlotModel
@@ -77,6 +81,8 @@ namespace ViewModel
 			CountingMethod = new ParallelCountingMethod();
 			//CountingMethod = new SimpleCountingMethod();
 
+			dbContext = new DBContext();
+
 			StatusString = StatusReady;
 
 			IsReadyToCount = true;
@@ -129,6 +135,21 @@ namespace ViewModel
 			WindowData.StepLengthY = 0.001f;
 			WindowData.ZeroFunc = "x*(1-x)*y*(1-y)";
 			WindowData.BorderFunc = "0";
+		}
+
+		public void SaveCurrent()
+		{
+			// NOT TESTED
+			BinaryFormatter bf = new BinaryFormatter();
+			MemoryStream initialDataMS = new MemoryStream();
+			MemoryStream dataMS = new MemoryStream();
+
+			bf.Serialize(initialDataMS,WindowData);
+			bf.Serialize(dataMS,CountingMethod.Result);
+
+			var e = new Entity { InitialData = initialDataMS.GetBuffer(), Data = dataMS.GetBuffer()}; // БЛОБ
+			dbContext.EntitySet.Add(e);
+			dbContext.SaveChanges();
 		}
 	}
 }

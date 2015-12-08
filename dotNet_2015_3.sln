@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{1A1C7DAE-89FD-4D5C-9984-8FF48AEE0086}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoreSoft.MathExpressions", "..\ExprEvalPolygon\ExprEvalPolygon\LoreSoft.MathExpressions\LoreSoft.MathExpressions.csproj", "{B6813448-FCE2-429C-81B5-9722FEA839B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoreSoft.MathExpressions", "LoreSoft.MathExpressions\LoreSoft.MathExpressions.csproj", "{B6813448-FCE2-429C-81B5-9722FEA839B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

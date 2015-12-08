@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace Model
 {
+	[Serializable]
 	public class InitialData : INotifyPropertyChanged
 	{
 		public float StepLengthTime { set { _stepLengthTime = value; CallPropertyChangedEvent("StepLengthTime"); } get { return _stepLengthTime; } }
@@ -32,6 +34,7 @@ namespace Model
 		private string _zeroFunc;
 		private string _borderFunc;
 
+		[field: NonSerialized()]
 		public event PropertyChangedEventHandler PropertyChanged;
 		private void CallPropertyChangedEvent(string argPropertyName)
 		{

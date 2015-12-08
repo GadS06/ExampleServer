@@ -32,5 +32,10 @@ namespace View
 		{
 			ViewModel.ExampleFill();
 		}
+
+		private void SaveClick(object sender, RoutedEventArgs e)
+		{
+			ViewModel.SaveCurrent();
+		}
 	}
 }
