@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Model;
 using OxyPlot;
+using System.Linq;
 
 namespace ViewModel
 {
@@ -13,6 +16,22 @@ namespace ViewModel
 		private const string StatusCounting = "Counting...";
 
 		private DBContext dbContext;
+
+		public ObservableCollection<int> SavedResults { get; set; } 
+
+		//private List<int> _savedResults;
+		//public List<int> SavedResults
+		//{
+		//	get
+		//	{
+		//		return _savedResults;
+		//	}
+		//	set
+		//	{
+		//		_savedResults = value;
+		//		CallPropertyChangedEvent("SavedResults");
+		//	}
+		//}
 
 		private PlotModel _plotModel;
 		public PlotModel PlotModel
@@ -83,6 +102,9 @@ namespace ViewModel
 
 			dbContext = new DBContext();
 
+			SavedResults = new ObservableCollection<int>();
+			UpdateSavedResultsList();
+
 			StatusString = StatusReady;
 
 			IsReadyToCount = true;
@@ -150,6 +172,21 @@ namespace ViewModel
 			var e = new Entity { InitialData = initialDataMS.GetBuffer(), Data = dataMS.GetBuffer()}; // БЛОБ
 			dbContext.EntitySet.Add(e);
 			dbContext.SaveChanges();
+
+			UpdateSavedResultsList();
+		}
+
+		private void UpdateSavedResultsList()
+		{
+			var query = from elem in dbContext.EntitySet
+				orderby elem.Id
+				select elem.Id;
+
+			SavedResults.Clear();
+			foreach (var elem in query)
+			{
+				SavedResults.Add(elem);
+			}
 		}
 	}
 }
