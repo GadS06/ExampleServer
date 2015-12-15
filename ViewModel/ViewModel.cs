@@ -167,7 +167,7 @@ namespace ViewModel
 
 		public void SaveCurrent()
 		{
-			// NOT TESTED
+			
 			BinaryFormatter bf = new BinaryFormatter();
 			MemoryStream initialDataMS = new MemoryStream();
 			MemoryStream dataMS = new MemoryStream();
