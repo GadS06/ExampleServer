@@ -1,5 +1,6 @@
 ﻿using Owin;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Server
 {
@@ -11,6 +12,7 @@ namespace Server
 		{
 			// Configure Web API for self-host. 
 			HttpConfiguration config = new HttpConfiguration();
+			config.EnableCors();
 			config.Routes.MapHttpRoute(
 				name: "DefaultApi",
 				routeTemplate: "api/{controller}/{id}",
